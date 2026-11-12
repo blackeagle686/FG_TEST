@@ -1,0 +1,7 @@
+location_id,name,latitude,longitude,elevation_m,uhi_intensity,base_temp_c,type
+LOC_001_DOWNTOWN,Financial District (Dense Canyon),40.7051,-74.017,12.0,2.4,31.9,dense_urban
+LOC_002_MIDTOWN,Midtown Manhattan (Commercial Core),40.758,-73.9855,22.0,2.8,32.8,commercial_highrise
+LOC_003_CENTRAL_PARK,Central Park (Urban Green Space),40.7812,-73.9665,42.0,0.0,29.2,park_vegetation
+LOC_004_BROOKLYN_HGTS,Brooklyn Heights (Waterfront),40.696,-73.9933,18.0,1.2,30.4,waterfront_residential
+LOC_005_QUEENS_LIC,Long Island City (Industrial / Mixed),40.7447,-73.9485,10.0,1.8,31.2,industrial_mixed
+LOC_006_HARLEM,East Harlem (Residential Urban),40.7957,-73.9389,8.0,2.1,31.6,residential_dense

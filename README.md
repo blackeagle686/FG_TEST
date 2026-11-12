@@ -15,6 +15,7 @@ A production-grade, automated unit test harness and contract verification suite 
 - [Overview](#overview)
 - [Tested API Endpoints](#tested-api-endpoints)
 - [Repository Structure](#repository-structure)
+- [Time-Series ML Dataset Suite (`data/`)](#-time-series-ml-dataset-suite-data)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -72,6 +73,17 @@ The test suite provides complete coverage across all **14 FortyGuard API service
 ├── .gitignore                    # Python and OS ignore patterns
 ├── test_suite.py                 # Standalone, production-ready unit test runner
 ├── api_examples.py               # Official documentation reference examples
+├── data/                         # Spatial-temporal time-series training suite
+│   ├── README.md                 # Dataset card, feature dictionary & ML examples
+│   ├── train.csv                 # 3,024 rows - Chronological training split (Days 1–21)
+│   ├── val.csv                   # 576 rows   - Chronological validation split (Days 22–25)
+│   ├── test.csv                  # 720 rows   - Chronological holdout test split (Days 26–30)
+│   ├── heat_timeseries_master.csv# 4,320 rows - Unified 30-day multi-location dataset
+│   ├── locations_metadata.csv    # Spatial metadata for 6 urban microclimates
+│   ├── dataset_summary.json      # Dataset metrics & statistical distributions
+│   ├── build_dataset.py          # Feature engineering & dataset pipeline generator
+│   ├── train_baseline.py         # Baseline autoregressive ML training script (R² = 0.983)
+│   └── baseline_predictions.csv  # Test set forecast predictions and error metrics
 └── results/                      # Real-world outputs from live API execution
     ├── unit_test_results.json    # Complete test outcomes (32 tests)
     ├── heatmap_completed_result.json  # 150-tile GeoJSON + thermal statistics
@@ -79,6 +91,26 @@ The test suite provides complete coverage across all **14 FortyGuard API service
     ├── env_params_completed_result.json # Atmospheric, AQI & solar irradiance outputs
     └── heat_intelligence_report.pdf   # Verified 845 KB generated PDF report
 ```
+
+---
+
+## 📈 Time-Series ML Dataset Suite (`data/`)
+
+Located in [`data/`](./data/), this suite is structured for training machine learning and deep learning models (ARIMA, Prophet, XGBoost, LSTM, GRU, Temporal Fusion Transformers) to predict heat and thermal indices across urban locations based on FortyGuard environmental data:
+
+- **6 Monitored Microclimates**: Financial District (canyon), Midtown Manhattan, Central Park (vegetative baseline), Brooklyn Heights (waterfront), Long Island City (industrial), and East Harlem.
+- **44 Engineering Features**: Ambient temperature target, heat index, apparent temperature, wet-bulb temperature, causal lag steps ($T_{t-1}, T_{t-2}, T_{t-24}$), rolling window moving averages & volatility, solar irradiance (GHI, DNI, DHI), relative humidity, precipitation, and air quality indices.
+- **Strict Chronological Splits**: Prevents temporal data leakage:
+  - `train.csv` (Days 1–21, 70%)
+  - `val.csv` (Days 22–25, 15%)
+  - `test.csv` (Days 26–30, 15%)
+- **Baseline Forecasting Model**: Built-in script [`data/train_baseline.py`](./data/train_baseline.py) achieves **MAE: 0.420 °C, RMSE: 0.526 °C, R²: 0.9830** on the holdout test set with zero external dependencies.
+
+To train the baseline model:
+```bash
+python3 data/train_baseline.py
+```
+For the complete feature dictionary, schema, and PyTorch / Scikit-learn code examples, see [`data/README.md`](./data/README.md).
 
 ---
 
