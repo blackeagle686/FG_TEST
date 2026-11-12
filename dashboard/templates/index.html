@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FortyGuard Urban Thermal AI | Prime Predictive Dashboard</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- Custom Prime Glassy Theme -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Prime Header -->
+  <header class="prime-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <div class="brand-icon">
+        <i class="fas fa-fire-flame-curved"></i>
+      </div>
+      <div>
+        <div class="brand-badge">FORTYGUARD <span style="font-weight: 400; color: #fff; -webkit-text-fill-color: #fff; font-size: 0.95rem; letter-spacing: 2px;">THERMAL AI</span></div>
+        <div style="font-size: 0.72rem; color: #94a3b8; letter-spacing: 0.5px;">LARGE TEMPERATURE MODEL (LTM) PREDICTIVE DASHBOARD</div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <div class="status-pill">
+        <i class="far fa-clock text-gold"></i>
+        <span id="live-clock" style="font-variant-numeric: tabular-nums;">--:--:-- UTC</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container-fluid px-4 py-3">
+
+    <!-- KPI Metric Cards -->
+    <div class="row g-3 mb-3">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="glass-panel kpi-card">
+          <div class="kpi-title"><i class="fas fa-satellite text-gold me-1"></i> Current Observed Mean</div>
+          <div class="kpi-value" id="kpi-current-mean">32.3 °C</div>
+          <div class="kpi-sub">Observed FortyGuard LTM 150-Tile Base</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="glass-panel kpi-card glass-panel-gold">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="kpi-title"><i class="fas fa-brain text-gold me-1"></i> Predicted Mean Heat</div>
+            <span class="delta-badge warm" id="kpi-delta">+2.1 °C</span>
+          </div>
+          <div class="kpi-value text-gold-gradient" id="kpi-pred-mean">34.4 °C</div>
+          <div class="kpi-sub">Forecast Horizon: <span id="forecast-badge-time" class="text-white fw-bold">+3h</span></div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="glass-panel kpi-card">
+          <div class="kpi-title"><i class="fas fa-triangle-exclamation text-danger me-1"></i> Peak Thermal Hazard</div>
+          <div class="kpi-value text-white" id="kpi-max-heat">38.9 °C</div>
+          <div class="kpi-sub">Canyon Heat Retention (Midtown Corridor)</div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="glass-panel kpi-card">
+          <div class="kpi-title"><i class="fas fa-chart-line text-gold me-1"></i> Model Validation Score</div>
+          <div class="kpi-value text-white">0.420 <span style="font-size: 1.1rem; color: #94a3b8; font-weight: 500;">MAE °C</span></div>
+          <div class="kpi-sub">RMSE: 0.526 °C | R²: 0.9830 (Test Split)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Horizon & Scenario Control Bar -->
+    <div class="glass-panel control-bar d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <span style="font-size: 0.82rem; font-weight: 700; color: #d4af37; text-transform: uppercase; letter-spacing: 0.8px;">
+          <i class="fas fa-forward-step me-1"></i> Forecast Horizon:
+        </span>
+        <div class="time-btn-group btn-group" role="group">
+          <input type="radio" class="btn-check" name="time_horizon" id="th-1" value="1">
+          <label class="btn" for="th-1">+1 Hour</label>
+
+          <input type="radio" class="btn-check" name="time_horizon" id="th-3" value="3" checked>
+          <label class="btn" for="th-3">+3 Hours</label>
+
+          <input type="radio" class="btn-check" name="time_horizon" id="th-6" value="6">
+          <label class="btn" for="th-6">+6 Hours</label>
+
+          <input type="radio" class="btn-check" name="time_horizon" id="th-12" value="12">
+          <label class="btn" for="th-12">+12 Hours</label>
+
+          <input type="radio" class="btn-check" name="time_horizon" id="th-24" value="24">
+          <label class="btn" for="th-24">+24 Hours</label>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-2">
+          <label for="basemap-select" style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">
+            <i class="fas fa-earth-americas text-gold me-1"></i> Free Basemap:
+          </label>
+          <select id="basemap-select" class="prime-select">
+            <option value="esriDark" selected>Dark Gray Canvas (Free - No Key)</option>
+            <option value="osm">OpenStreetMap Standard (Free - No Key)</option>
+            <option value="satellite">Satellite Aerial (Free - No Key)</option>
+          </select>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <label for="scenario-select" style="font-size: 0.82rem; color: #94a3b8; font-weight: 600;">Simulation Scenario:</label>
+          <select id="scenario-select" class="prime-select">
+            <option value="baseline" selected>Normal Diurnal Cycle</option>
+            <option value="heatwave_surge">Heatwave Surge (+3.8 °C)</option>
+            <option value="cooling_breeze">Marine Breeze Front (-2.5 °C)</option>
+            <option value="peak_uhi">Peak Urban Heat Island (+2.0 °C)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual Synchronized Heatmap Comparison -->
+    <div class="row g-3 mb-3">
+      <!-- Left Map: Current Observed -->
+      <div class="col-12 col-lg-6">
+        <div class="glass-panel p-2">
+          <div class="map-container-wrapper">
+            <div class="map-header-badge">
+              <i class="fas fa-circle-dot text-success me-1"></i> CURRENT OBSERVED HEATMAP (LTM BASELINE)
+            </div>
+            <div id="map-current" class="map-view"></div>
+            <div class="map-legend">
+              <div style="font-weight: 700; font-size: 0.72rem; color: #d4af37;">HEAT SCALE (°C)</div>
+              <div class="legend-scale"></div>
+              <div class="d-flex justify-content-between" style="font-size: 0.68rem; color: #94a3b8;">
+                <span>26°C</span>
+                <span>31°C</span>
+                <span>35°C</span>
+                <span>38°C+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Map: AI Model Predicted -->
+      <div class="col-12 col-lg-6">
+        <div class="glass-panel p-2 glass-panel-gold">
+          <div class="map-container-wrapper">
+            <div class="map-header-badge" style="border-color: rgba(212, 175, 55, 0.4);">
+              <i class="fas fa-brain text-gold me-1"></i> AI MODEL PREDICTED HEATMAP (FUTURE PROJECTION)
+            </div>
+            <div id="map-predicted" class="map-view"></div>
+            <div class="map-legend" style="border-color: rgba(212, 175, 55, 0.3);">
+              <div style="font-weight: 700; font-size: 0.72rem; color: #d4af37;">PREDICTED THERMAL INTENSITY</div>
+              <div class="legend-scale"></div>
+              <div class="d-flex justify-content-between" style="font-size: 0.68rem; color: #94a3b8;">
+                <span>Low</span>
+                <span>Moderate</span>
+                <span>High</span>
+                <span>Critical</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lower Section: Time Series Chart & Microclimate Stations -->
+    <div class="row g-3">
+      <!-- Trajectory Chart -->
+      <div class="col-12 col-xl-8">
+        <div class="glass-panel p-3 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <div style="font-size: 0.88rem; font-weight: 700; color: #ffffff;" id="chart-station-title">
+                Microclimate Thermal Forecast Trajectory
+              </div>
+              <div style="font-size: 0.75rem; color: #94a3b8;">
+                Continuous 48-Hour Sequence (Past 24h Observed → Next 24h AI Prediction with 95% Confidence Bounds)
+              </div>
+            </div>
+            <div class="badge" style="background: rgba(212, 175, 55, 0.15); color: #d4af37; border: 1px solid rgba(212, 175, 55, 0.3); font-weight: 600;">
+              LTM Autoregressive
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="timeseries-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Microclimate Stations List -->
+      <div class="col-12 col-xl-4">
+        <div class="glass-panel p-3 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div style="font-size: 0.88rem; font-weight: 700; color: #ffffff;">
+              <i class="fas fa-location-dot text-gold me-1"></i> Microclimate Stations
+            </div>
+            <span style="font-size: 0.72rem; color: #94a3b8;">Click to fly map & plot</span>
+          </div>
+
+          <div id="stations-container">
+            <!-- Dynamic station cards loaded via dashboard.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

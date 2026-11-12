@@ -6,7 +6,21 @@
 [![Pass Rate](https://img.shields.io/badge/Pass%20Rate-93.8%25-brightgreen)](./results/unit_test_results.json)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
-A production-grade, automated unit test harness and contract verification suite for the **FortyGuard v1 REST APIs**. This suite validates all 14 official endpoints covering Large Temperature Models (LTMs), satellite and street view semantic segmentation, environmental metrics, thermal routing, and autonomous continuous monitoring lifecycles.
+A production-grade, automated unit test harness, contract verification suite, and **Prime Thermal Predictive Dashboard** for the **FortyGuard v1 REST APIs**. This suite validates all 14 official endpoints covering Large Temperature Models (LTMs), satellite and street view semantic segmentation, environmental metrics, thermal routing, and autonomous continuous monitoring lifecycles.
+
+---
+
+<p align="center">
+  <img src="./gallery/image2.png" alt="FortyGuard Urban Thermal AI - Microclimate Analysis and Forecast Trajectory" width="100%">
+  <br>
+  <em>Figure 1: Dual synchronized spatial heatmaps displaying current observed FortyGuard LTM baseline alongside AI-predicted heat distribution.</em>
+</p>
+
+<p align="center">
+  <img src="./gallery/image.png" alt="FortyGuard Urban Thermal AI - Dual Synchronized Heatmaps" width="100%">
+  <br>
+  <em>Figure 2: 48-Hour continuous predictive temperature trajectory with 95% confidence intervals and urban microclimate stations.</em>
+</p>
 
 ---
 
@@ -15,6 +29,7 @@ A production-grade, automated unit test harness and contract verification suite 
 - [Overview](#overview)
 - [Tested API Endpoints](#tested-api-endpoints)
 - [Repository Structure](#repository-structure)
+- [Interactive UI Dashboard (`dashboard/`)](#-interactive-ui-dashboard-dashboard)
 - [Time-Series ML Dataset Suite (`data/`)](#-time-series-ml-dataset-suite-data)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -73,6 +88,15 @@ The test suite provides complete coverage across all **14 FortyGuard API service
 ├── .gitignore                    # Python and OS ignore patterns
 ├── test_suite.py                 # Standalone, production-ready unit test runner
 ├── api_examples.py               # Official documentation reference examples
+├── dashboard/                    # Interactive Prime Glassy Web Dashboard
+│   ├── README.md                 # Dashboard features & architecture overview
+│   ├── app.py                    # FastAPI backend serving prediction APIs
+│   ├── run_dashboard.py          # One-click dashboard server launcher
+│   ├── templates/
+│   │   └── index.html            # Luxury UI/UX template (Bootstrap 5, Leaflet, Chart.js)
+│   └── static/
+│       ├── css/style.css         # Gold, Black, White glassmorphism styling
+│       └── js/dashboard.js       # Synchronized dual-map and chart controller
 ├── data/                         # Spatial-temporal time-series training suite
 │   ├── README.md                 # Dataset card, feature dictionary & ML examples
 │   ├── train.csv                 # 3,024 rows - Chronological training split (Days 1–21)
@@ -94,7 +118,31 @@ The test suite provides complete coverage across all **14 FortyGuard API service
 
 ---
 
-## 📈 Time-Series ML Dataset Suite (`data/`)
+##  Interactive UI Dashboard (`dashboard/`)
+
+A luxury, web-based spatial-temporal thermal dashboard with a **FastAPI backend** located in [`dashboard/`](./dashboard/):
+
+- **Prime UI/UX Aesthetic**: Built with a **Gold, Black, and White** color palette (`#D4AF37`, `#07080B`, `#FFFFFF`), borderless glassmorphism panels, and glowing thermal gradients.
+- **Dual Synchronized Spatial Heatmaps**:
+  - **Left Map**: Observed baseline FortyGuard LTM 150-tile thermal layer.
+  - **Right Map**: Real-time AI model predictions for future horizons (`+1h`, `+3h`, `+6h`, `+12h`, `+24h`).
+  - **Pan & Zoom Sync**: Interactive movement on one map immediately updates both cameras in tandem.
+- **Scenario Simulation**: Test diurnal cooling, heatwave surges ($+3.8$ °C), and urban heat island peaks.
+- **Microclimate Station Exploration**: Click on any of the 6 NYC microclimates (Financial District, Midtown, Central Park, Brooklyn, Queens, Harlem) to fly both maps and plot a continuous 48-hour historical and forecast curve with 95% confidence bounds.
+
+### Launching the Dashboard:
+```bash
+# Using the launcher script
+venv/bin/python3 dashboard/run_dashboard.py
+
+# Or via Uvicorn directly
+venv/bin/uvicorn app:app --app-dir dashboard --host 127.0.0.1 --port 8000 --reload
+```
+Navigate to **`http://localhost:8000`** in your browser to view the dashboard.
+
+---
+
+##  Time-Series ML Dataset Suite (`data/`)
 
 Located in [`data/`](./data/), this suite is structured for training machine learning and deep learning models (ARIMA, Prophet, XGBoost, LSTM, GRU, Temporal Fusion Transformers) to predict heat and thermal indices across urban locations based on FortyGuard environmental data:
 

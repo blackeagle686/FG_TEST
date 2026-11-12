@@ -13,7 +13,7 @@ import argparse
 from pathlib import Path
 import requests
 
-DEFAULT_API_KEY = "f2012cbf956d74fd478c29b84ee54b4a"
+DEFAULT_API_KEY = "f2012*******************************"
 API_KEY = os.environ.get("FORTYGUARD_API_KEY", DEFAULT_API_KEY)
 BASE_URL = os.environ.get("FORTYGUARD_BASE_URL", "https://api.fortyguard.com")
 

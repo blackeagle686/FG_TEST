@@ -1,0 +1,395 @@
+/* ==========================================================================
+   FortyGuard Urban Thermal AI - Prime Glassy UI/UX (Gold, Black & White)
+   ========================================================================== */
+
+:root {
+  --bg-deep: #07080b;
+  --bg-surface: rgba(15, 17, 24, 0.65);
+  --bg-surface-elevated: rgba(22, 25, 36, 0.75);
+  --bg-glass-card: rgba(18, 20, 29, 0.55);
+  --bg-glass-hover: rgba(26, 29, 42, 0.7);
+
+  /* Gold Luxury Palette */
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  --gold-subtle: rgba(212, 175, 55, 0.12);
+  --gold-gradient: linear-gradient(135deg, #f5d061 0%, #d4af37 50%, #aa771c 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #ffdf7a 0%, #e0bd47 50%, #ba8629 100%);
+
+  /* Neutrals */
+  --text-white: #ffffff;
+  --text-platinum: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-dark: #64748b;
+
+  /* Glass Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-gold: rgba(212, 175, 55, 0.18);
+
+  /* Elevations & Shadows */
+  --shadow-glass: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --shadow-gold-glow: 0 0 25px rgba(212, 175, 55, 0.15);
+  --shadow-kpi: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  /* Fonts */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Cabinet Grotesk', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Global Reset & Base */
+body {
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(212, 175, 55, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(10, 12, 18, 0.9) 0%, var(--bg-deep) 100%);
+  color: var(--text-platinum);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-subtle);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+/* Glassmorphism Surface (Borderless Aesthetic) */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: var(--shadow-glass);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-glass), var(--shadow-gold-glow);
+}
+
+.glass-panel-gold {
+  border: 1px solid var(--border-gold);
+  background: linear-gradient(145deg, rgba(22, 25, 36, 0.8) 0%, rgba(15, 17, 24, 0.9) 100%);
+}
+
+/* Prime Navigation Header */
+.prime-navbar {
+  background: rgba(10, 12, 18, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 14px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+}
+
+.brand-badge {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--gold-gradient);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #07080b;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* Status Chips */
+.status-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  color: var(--text-platinum);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2ecc71;
+  box-shadow: 0 0 10px #2ecc71;
+  display: inline-block;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+/* Gold Gradient Accents */
+.text-gold {
+  color: var(--gold-primary) !important;
+}
+
+.text-gold-gradient {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* KPI Card Styles */
+.kpi-card {
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  opacity: 0.6;
+}
+
+.kpi-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.kpi-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-white);
+  line-height: 1.1;
+  font-family: var(--font-heading);
+}
+
+.kpi-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Prime Time Control Bar */
+.control-bar {
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+/* Time Horizon Pill Buttons */
+.time-btn-group .btn-check + .btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-platinum);
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+  margin-right: 6px;
+}
+
+.time-btn-group .btn-check:checked + .btn {
+  background: var(--gold-gradient);
+  border-color: var(--gold-primary);
+  color: #07080b;
+  box-shadow: 0 0 18px var(--gold-glow);
+}
+
+.time-btn-group .btn-check + .btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--gold-light);
+  border-color: var(--border-gold);
+}
+
+/* Map Containers */
+.map-container-wrapper {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 480px;
+  background: #090b10;
+  border: 1px solid var(--border-subtle);
+}
+
+.map-view {
+  width: 100%;
+  height: 100%;
+}
+
+.map-header-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1000;
+  background: rgba(10, 12, 18, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  z-index: 1000;
+  background: rgba(10, 12, 18, 0.85);
+  backdrop-filter: blur(14px);
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  color: var(--text-platinum);
+}
+
+.legend-scale {
+  display: flex;
+  height: 8px;
+  width: 150px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #5dade2 0%, #d4af37 50%, #e67e22 75%, #e74c3c 100%);
+  margin: 6px 0;
+}
+
+/* Select Form Controls */
+.prime-select {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-white);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  transition: all 0.25s ease;
+}
+
+.prime-select:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--gold-primary);
+  color: var(--text-white);
+  box-shadow: 0 0 12px var(--gold-subtle);
+  outline: none;
+}
+
+.prime-select option {
+  background: #11131b;
+  color: var(--text-white);
+}
+
+/* Custom Tooltips for Maps */
+.leaflet-popup-content-wrapper {
+  background: rgba(12, 14, 21, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border-gold) !important;
+  color: var(--text-white) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(12, 14, 21, 0.92) !important;
+  border: 1px solid var(--border-gold) !important;
+}
+
+/* Microclimate Station Cards */
+.station-card {
+  padding: 14px 16px;
+  background: var(--bg-glass-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.station-card:hover, .station-card.active {
+  background: var(--bg-glass-hover);
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-kpi);
+}
+
+.station-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-white);
+}
+
+.station-cat {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.station-temp {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+/* Delta Tag */
+.delta-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.delta-badge.warm {
+  background: rgba(231, 76, 60, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.delta-badge.cool {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Chart Canvas */
+.chart-wrapper {
+  position: relative;
+  height: 260px;
+  width: 100%;
+}
