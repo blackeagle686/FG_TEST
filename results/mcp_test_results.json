@@ -1,0 +1,137 @@
+[
+  {
+    "test_id": "MCP-01",
+    "name": "MCP Server Handshake (initialize)",
+    "tool": "protocol",
+    "passed": true,
+    "server_info": {
+      "name": "FortyGuard",
+      "version": "4.0.11"
+    },
+    "protocol_version": "2024-11-05",
+    "latency_sec": 2.306
+  },
+  {
+    "test_id": "MCP-02",
+    "name": "Tool Catalog Discovery (tools/list)",
+    "tool": "catalog",
+    "passed": true,
+    "tool_count": 11,
+    "tool_names": [
+      "credit_balance",
+      "env_params",
+      "heatmap",
+      "heatmap_read",
+      "monitoring",
+      "report",
+      "report_read",
+      "satellite",
+      "streetview",
+      "temperature_routing",
+      "temperature_routing_read"
+    ]
+  },
+  {
+    "test_id": "MCP-03",
+    "name": "Credit Balance Check (credit_balance)",
+    "tool": "credit_balance",
+    "passed": true,
+    "available_credits": 878960,
+    "trace": {
+      "trace_id": "a2973993d41d",
+      "tool": "credit_balance",
+      "plan_type": "premium",
+      "decision": "allow",
+      "status": "ok",
+      "latency_ms": 465,
+      "cost_credits": 0
+    }
+  },
+  {
+    "test_id": "MCP-04",
+    "name": "Environmental Conditions Retrieval (env_params)",
+    "tool": "env_params",
+    "passed": true,
+    "parameters_retrieved": [
+      "apparent_temperature_celsius",
+      "relative_humidity_percent",
+      "precipitation_mm",
+      "cloud_cover_octas",
+      "wet_bulb_temperature_celsius",
+      "elevation_meters",
+      "aqi_us"
+    ],
+    "latency_sec": 2.512
+  },
+  {
+    "test_id": "MCP-05",
+    "name": "Read Heatmap Statistics (heatmap_read)",
+    "tool": "heatmap_read",
+    "passed": true,
+    "status": "completed",
+    "temperature_unit": "celsius"
+  },
+  {
+    "test_id": "MCP-06",
+    "name": "Read Temperature-Aware Routes (temperature_routing_read)",
+    "tool": "temperature_routing_read",
+    "passed": true,
+    "routes_count": 3
+  },
+  {
+    "test_id": "MCP-07",
+    "name": "Read Heat Intelligence Report (report_read)",
+    "tool": "report_read",
+    "passed": true,
+    "report_url_present": true
+  },
+  {
+    "test_id": "MCP-08",
+    "name": "Street View Semantic Segmentation (streetview)",
+    "tool": "streetview",
+    "passed": true,
+    "segments": {
+      "building": 49.4,
+      "sky": 10.52,
+      "road": 31.7,
+      "sidewalk": 2.42,
+      "person": 5.89,
+      "others": 0.07
+    },
+    "latency_sec": 3.789
+  },
+  {
+    "test_id": "MCP-09",
+    "name": "Satellite Imagery Semantic Segmentation (satellite)",
+    "tool": "satellite",
+    "passed": true,
+    "latency_sec": 2.643
+  },
+  {
+    "test_id": "MCP-10",
+    "name": "Heatmap Monitoring Unified Lifecycle (monitoring)",
+    "tool": "monitoring",
+    "passed": true,
+    "operation": "list_monitors"
+  },
+  {
+    "test_id": "MCP-11",
+    "name": "Input Validation & Crash Prevention (temperature_routing)",
+    "tool": "temperature_routing",
+    "passed": true,
+    "validation_shield_verified": true,
+    "error_details": {
+      "category": "invalid_input",
+      "message": "The request input is invalid.",
+      "retriable": false
+    }
+  },
+  {
+    "test_id": "MCP-12",
+    "name": "Plan Tier Enforcement & Schema Guard (report)",
+    "tool": "report",
+    "passed": true,
+    "error_code": "INVALID_REPORT_ANALYSIS_COUNT",
+    "message": "Your Premium plan supports a maximum of 2 report analysis types. You requested 3. Select 1 or 2 analysis types."
+  }
+]

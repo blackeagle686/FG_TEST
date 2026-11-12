@@ -2,8 +2,9 @@
 
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
 [![API Status](https://img.shields.io/badge/FortyGuard%20API-v1-green)](https://api.fortyguard.com)
-[![Test Suite](https://img.shields.io/badge/Tests-32%20Executed-success)](./results/unit_test_results.json)
-[![Pass Rate](https://img.shields.io/badge/Pass%20Rate-93.8%25-brightgreen)](./results/unit_test_results.json)
+[![MCP Status](https://img.shields.io/badge/FortyGuard%20MCP-100%25%20Verified-gold)](./results/mcp_test_results.json)
+[![REST Suite](https://img.shields.io/badge/REST%20Tests-32%20Executed-success)](./results/unit_test_results.json)
+[![MCP Suite](https://img.shields.io/badge/MCP%20Tests-12%20Passed-brightgreen)](./results/mcp_test_results.json)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 A production-grade, automated unit test harness, contract verification suite, and **Prime Thermal Predictive Dashboard** for the **FortyGuard v1 REST APIs**. This suite validates all 14 official endpoints covering Large Temperature Models (LTMs), satellite and street view semantic segmentation, environmental metrics, thermal routing, and autonomous continuous monitoring lifecycles.
@@ -192,23 +193,23 @@ export FORTYGUARD_BASE_URL="https://api.fortyguard.com"
 
 ---
 
-##  Running the Test Suite
+##  Running the Test Suites
 
-Execute the full automated test suite:
+### 1. REST API Test Suite (14 Endpoints)
+Execute the automated REST API test suite:
 
 ```bash
 python3 test_suite.py
 ```
 
-### CLI Options
-
-You can override the API key or base URL directly from the command line:
+### 2. Model Context Protocol (MCP) Verification Suite (11 Tools)
+Execute the automated JSON-RPC 2.0 remote MCP verification suite against `https://tos-mcp.app.fortyguard.com/mcp`:
 
 ```bash
-python3 test_suite.py --key "your_api_key_here" --url "https://api.fortyguard.com"
+python3 test_mcp_suite.py
 ```
 
-The runner outputs formatted test logs with execution timings and saves the structured outcomes to `results/unit_test_results.json`.
+All 12 contract tests will execute, validating JSON-RPC protocol initialization, catalog discovery, direct analysis, async read operations, credit queries, and input validation shields. Results are saved to `results/mcp_test_results.json`.
 
 ---
 
