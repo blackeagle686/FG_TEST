@@ -1,0 +1,1162 @@
+[
+  {
+    "test_id": "AUTH-01",
+    "name": "Missing API Key",
+    "method": "GET",
+    "endpoint": "/v1/monitors",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:25:41",
+    "status_code": 401,
+    "duration_sec": 3.035,
+    "response_body": {
+      "error": true,
+      "status_code": 401,
+      "details": {
+        "message": "Missing required 'api-key' header. Send your key in the 'api-key' request header."
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "AUTH-02",
+    "name": "Invalid API Key",
+    "method": "GET",
+    "endpoint": "/v1/monitors",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:25:44",
+    "status_code": 401,
+    "duration_sec": 1.638,
+    "response_body": {
+      "error": true,
+      "status_code": 401,
+      "details": {
+        "message": "Invalid or unknown API key."
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "AUTH-03",
+    "name": "Valid API Key",
+    "method": "GET",
+    "endpoint": "/v1/monitors",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:25:45",
+    "status_code": 200,
+    "duration_sec": 7.577,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Monitors fetched successfully",
+      "data": {
+        "items": [],
+        "next_cursor": null
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-01",
+    "name": "Create Heatmap - Single Hour (granularity 100)",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      },
+      "granularity": 100
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:25:53",
+    "status_code": 200,
+    "duration_sec": 5.808,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "292766d2-f98a-4944-9a25-d86d84cb947b"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-02",
+    "name": "Create Heatmap - Range of Hours (granularity 80)",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "09:00",
+        "end_time": "17:00",
+        "filter_type": 2
+      },
+      "granularity": 80
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:25:59",
+    "status_code": 200,
+    "duration_sec": 6.889,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "6e2b950c-51f6-4327-b4c3-8242806dd499"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-03",
+    "name": "Create Heatmap - Single Day (granularity 60)",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "filter_type": 3
+      },
+      "granularity": 60
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:06",
+    "status_code": 200,
+    "duration_sec": 5.733,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "9d8d29a1-5f1f-4649-85c8-57069f5aada4"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-04",
+    "name": "Create Heatmap - Range of Days (granularity 100)",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-01",
+        "end_date": "2024-07-31",
+        "filter_type": 4
+      },
+      "granularity": 100
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:11",
+    "status_code": 200,
+    "duration_sec": 6.348,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "80b48e32-59ac-478e-bcbf-0248088f7f98"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-05",
+    "name": "Create Heatmap - Analytic Exceedance",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "06:00",
+        "end_time": "18:00",
+        "filter_type": 2
+      },
+      "granularity": 100,
+      "analytic_type": "exceedance",
+      "threshold": 30,
+      "direction": "above"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:18",
+    "status_code": 200,
+    "duration_sec": 6.703,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "79497ee8-00c8-4696-bbbd-0fb7dd4eac27"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-06",
+    "name": "Create Heatmap - Analytic Time of Measure",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.7051
+            ],
+            [
+              -74.0031,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.7051
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "filter_type": 3
+      },
+      "granularity": 100,
+      "analytic_type": "time_of_measure"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:24",
+    "status_code": 200,
+    "duration_sec": 3.433,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Heatmap Submitted Successfully",
+      "data": {
+        "activity_id": "c4a8bcfa-833a-42af-81f7-530ce8c5561a"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-VAL-01",
+    "name": "Create Heatmap - Missing AOI",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      },
+      "granularity": 100
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:28",
+    "status_code": 422,
+    "duration_sec": 9.421,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'polygon_aoi' is required.",
+      "field": "polygon_aoi",
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "polygon_aoi"
+          ],
+          "msg": "Field required",
+          "input": {
+            "date_time": {
+              "start_date": "2024-07-15",
+              "start_time": "14:00",
+              "filter_type": 1
+            },
+            "granularity": 100
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HM-VAL-02",
+    "name": "Create Heatmap - Invalid filter_type 99",
+    "method": "POST",
+    "endpoint": "/v1/heatmap",
+    "request_payload": {
+      "polygon_aoi": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.017,
+              40.705
+            ],
+            [
+              -74.003,
+              40.705
+            ],
+            [
+              -74.003,
+              40.718
+            ],
+            [
+              -74.017,
+              40.718
+            ],
+            [
+              -74.017,
+              40.705
+            ]
+          ]
+        ]
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "filter_type": 99
+      },
+      "granularity": 100
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:37",
+    "status_code": 422,
+    "duration_sec": 2.457,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'date_time.filter_type' is invalid: Input should be 1, 2, 3 or 4",
+      "field": "date_time.filter_type",
+      "detail": [
+        {
+          "type": "literal_error",
+          "loc": [
+            "body",
+            "date_time",
+            "filter_type"
+          ],
+          "msg": "Input should be 1, 2, 3 or 4",
+          "input": 99,
+          "ctx": {
+            "expected": "1, 2, 3 or 4"
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "SAT-01",
+    "name": "Satellite View Segmentation - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/satellite",
+    "request_payload": {
+      "sat": {
+        "latitude": 41.84632807720175,
+        "longitude": -87.74329628220852
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      },
+      "granularity": 80
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:40",
+    "status_code": 200,
+    "duration_sec": 6.451,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Satellite Segmentation Submitted Successfully",
+      "data": {
+        "activity_id": "007fca9d-fda4-4a02-b156-4437682fc5e6"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "SAT-VAL-01",
+    "name": "Satellite - Missing 'sat' object",
+    "method": "POST",
+    "endpoint": "/v1/satellite",
+    "request_payload": {
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      }
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:46",
+    "status_code": 422,
+    "duration_sec": 3.248,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'sat' is required.",
+      "field": "sat",
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "sat"
+          ],
+          "msg": "Field required",
+          "input": {
+            "date_time": {
+              "start_date": "2024-07-15",
+              "start_time": "14:00",
+              "filter_type": 1
+            }
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "SAT-VAL-02",
+    "name": "Satellite - Out of range latitude (95.0)",
+    "method": "POST",
+    "endpoint": "/v1/satellite",
+    "request_payload": {
+      "sat": {
+        "latitude": 95.0,
+        "longitude": -87.74
+      },
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      }
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:49",
+    "status_code": 422,
+    "duration_sec": 1.359,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'sat.latitude' is invalid: Input should be less than or equal to 90",
+      "field": "sat.latitude",
+      "detail": [
+        {
+          "type": "less_than_equal",
+          "loc": [
+            "body",
+            "sat",
+            "latitude"
+          ],
+          "msg": "Input should be less than or equal to 90",
+          "input": 95.0,
+          "ctx": {
+            "le": 90.0
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "STR-01",
+    "name": "Street View Segmentation - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/streetview",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "vertical_angle": 10.0,
+      "horizontal_angle": 90.0,
+      "back_view": false
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:51",
+    "status_code": 200,
+    "duration_sec": 7.372,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Street View Segmentation Submitted Successfully",
+      "data": {
+        "activity_id": "299a5ed7-69c1-4a7f-97bc-0ceab2b8579b"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "STR-VAL-01",
+    "name": "Street View - Missing coordinates",
+    "method": "POST",
+    "endpoint": "/v1/streetview",
+    "request_payload": {
+      "vertical_angle": 10.0,
+      "horizontal_angle": 90.0,
+      "back_view": false
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:26:58",
+    "status_code": 422,
+    "duration_sec": 3.174,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'latitude' is required.",
+      "field": "latitude",
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "latitude"
+          ],
+          "msg": "Field required",
+          "input": {
+            "vertical_angle": 10.0,
+            "horizontal_angle": 90.0,
+            "back_view": false
+          }
+        },
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "longitude"
+          ],
+          "msg": "Field required",
+          "input": {
+            "vertical_angle": 10.0,
+            "horizontal_angle": 90.0,
+            "back_view": false
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "HI-01",
+    "name": "Heat Intelligence - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/heat_intelligence",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "temperature": 85,
+      "date": "2024-07-15",
+      "analysis": [
+        "geographic",
+        "environmental",
+        "urban"
+      ]
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:01",
+    "status_code": 400,
+    "duration_sec": 19.293,
+    "response_body": {
+      "error": true,
+      "status_code": 400,
+      "message": "Your Premium plan supports a maximum of 2 report analysis types. You requested 3. Select 1 or 2 analysis types.",
+      "field": "analysis",
+      "code": "INVALID_REPORT_ANALYSIS_COUNT"
+    },
+    "error": null,
+    "passed": false
+  },
+  {
+    "test_id": "HI-VAL-01",
+    "name": "Heat Intelligence - Missing analysis array",
+    "method": "POST",
+    "endpoint": "/v1/heat_intelligence",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "temperature": 85,
+      "date": "2024-07-15"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:21",
+    "status_code": 422,
+    "duration_sec": 1.801,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'analysis' is required.",
+      "field": "analysis",
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "analysis"
+          ],
+          "msg": "Field required",
+          "input": {
+            "latitude": 40.7128,
+            "longitude": -74.006,
+            "temperature": 85,
+            "date": "2024-07-15"
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ENV-01",
+    "name": "Environmental Parameters - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/env_params",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "temperature": 32.5,
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      }
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:22",
+    "status_code": 200,
+    "duration_sec": 6.757,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Environment Parameters Analysis Submitted Successfully",
+      "data": {
+        "activity_id": "09bd54b4-dbc1-4590-a37e-c7b2e078dfa8"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ENV-02",
+    "name": "Environmental Parameters - Selected 3 metrics",
+    "method": "POST",
+    "endpoint": "/v1/env_params",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "temperature": 32.5,
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      },
+      "analysis": [
+        "heat_index_celsius",
+        "apparent_temperature_celsius",
+        "relative_humidity_percent"
+      ]
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:29",
+    "status_code": 200,
+    "duration_sec": 3.89,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Environment Parameters Analysis Submitted Successfully",
+      "data": {
+        "activity_id": "459c91f8-e257-4d47-8efa-263878d4de4c"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ENV-VAL-01",
+    "name": "Environmental Parameters - Missing temperature",
+    "method": "POST",
+    "endpoint": "/v1/env_params",
+    "request_payload": {
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "date_time": {
+        "start_date": "2024-07-15",
+        "start_time": "14:00",
+        "filter_type": 1
+      }
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:33",
+    "status_code": 422,
+    "duration_sec": 1.945,
+    "response_body": {
+      "error": true,
+      "status_code": 422,
+      "message": "Field 'temperature' is required.",
+      "field": "temperature",
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "temperature"
+          ],
+          "msg": "Field required",
+          "input": {
+            "latitude": 40.7128,
+            "longitude": -74.006,
+            "date_time": {
+              "start_date": "2024-07-15",
+              "start_time": "14:00",
+              "filter_type": 1
+            }
+          }
+        }
+      ]
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ROUT-01",
+    "name": "Temperature-Aware Routing - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/routing",
+    "request_payload": {
+      "origin": {
+        "lat": 40.7812,
+        "lon": -73.9665
+      },
+      "destination": {
+        "lat": 40.758,
+        "lon": -73.9855
+      },
+      "departure_time": "2026-10-19T12:00:00Z"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:35",
+    "status_code": 200,
+    "duration_sec": 6.349,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Routing Submitted Successfully",
+      "data": {
+        "activity_id": "691d4918-ab45-4bb5-ad6b-1d8c6cc162c2"
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ROUT-VAL-01",
+    "name": "Routing - Identical origin and destination",
+    "method": "POST",
+    "endpoint": "/v1/routing",
+    "request_payload": {
+      "origin": {
+        "lat": 40.7812,
+        "lon": -73.9665
+      },
+      "destination": {
+        "lat": 40.7812,
+        "lon": -73.9665
+      },
+      "departure_time": "2026-10-19T12:00:00Z"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:41",
+    "status_code": 500,
+    "duration_sec": 2.047,
+    "response_body": "Internal Server Error",
+    "error": null,
+    "passed": false
+  },
+  {
+    "test_id": "MON-01",
+    "name": "List Monitors - Doc Example with limit",
+    "method": "GET",
+    "endpoint": "/v1/monitors",
+    "request_payload": null,
+    "request_params": {
+      "limit": 25
+    },
+    "start_time": "2026-11-12 16:27:43",
+    "status_code": 200,
+    "duration_sec": 6.351,
+    "response_body": {
+      "error": false,
+      "status_code": 200,
+      "message": "Monitors fetched successfully",
+      "data": {
+        "items": [],
+        "next_cursor": null
+      }
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "MON-02",
+    "name": "Create Monitor - Doc Example",
+    "method": "POST",
+    "endpoint": "/v1/monitors",
+    "request_payload": {
+      "heatmap_id": "6210e00f-9262-4a8e-865c-5aecc5ee6b7d",
+      "name": "Heat Watch Unit Test 1794493670",
+      "boundary_geojson": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -74.01,
+              40.7
+            ],
+            [
+              -73.93,
+              40.7
+            ],
+            [
+              -73.93,
+              40.85
+            ],
+            [
+              -74.01,
+              40.7
+            ]
+          ]
+        ]
+      },
+      "rules": [
+        {
+          "temporal_aggregation": "average",
+          "spatial_aggregation": "minimum",
+          "operator": "above",
+          "threshold": 40,
+          "unit": "celsius"
+        }
+      ],
+      "notifications": {
+        "email": [
+          "qa-tester@example.com"
+        ]
+      },
+      "enabled": true,
+      "generate_report": true
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:50",
+    "status_code": 400,
+    "duration_sec": 3.683,
+    "response_body": {
+      "error": true,
+      "status_code": 400,
+      "message": "FortyGuard currently provides data only for supported regions within the United States. The requested location is outside supported U.S. coverage. Availability within the United States also depends on the tool, location, date, and data source.",
+      "field": "boundary_geojson",
+      "code": "OUT_OF_COVERAGE"
+    },
+    "error": null,
+    "passed": false
+  },
+  {
+    "test_id": "MON-03",
+    "name": "Get Monitor (00000000-0000-0000-0000-000000000000)",
+    "method": "GET",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:54",
+    "status_code": 404,
+    "duration_sec": 3.89,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "MON-04",
+    "name": "Update Monitor (00000000-0000-0000-0000-000000000000)",
+    "method": "PATCH",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000",
+    "request_payload": {
+      "enabled": false,
+      "name": "Updated heat watch test (paused)"
+    },
+    "request_params": null,
+    "start_time": "2026-11-12 16:27:57",
+    "status_code": 404,
+    "duration_sec": 1.359,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ALT-01",
+    "name": "List Alerts for Monitor (00000000-0000-0000-0000-000000000000)",
+    "method": "GET",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000/alerts",
+    "request_payload": null,
+    "request_params": {
+      "limit": 25
+    },
+    "start_time": "2026-11-12 16:27:59",
+    "status_code": 404,
+    "duration_sec": 1.035,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ALT-02",
+    "name": "Alert Report (Read)",
+    "method": "GET",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000/alerts/00000000-0000-0000-0000-000000000001/report",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:28:00",
+    "status_code": 404,
+    "duration_sec": 1.598,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "ALT-03",
+    "name": "Alert Report (Download PDF)",
+    "method": "GET",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000/alerts/00000000-0000-0000-0000-000000000001/report/download",
+    "request_payload": null,
+    "request_params": {
+      "file_type": "pdf"
+    },
+    "start_time": "2026-11-12 16:28:01",
+    "status_code": 404,
+    "duration_sec": 2.149,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "MON-05",
+    "name": "Delete Monitor (00000000-0000-0000-0000-000000000000)",
+    "method": "DELETE",
+    "endpoint": "/v1/monitors/00000000-0000-0000-0000-000000000000",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:28:04",
+    "status_code": 404,
+    "duration_sec": 5.815,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "message": "Monitor not found."
+    },
+    "error": null,
+    "passed": true
+  },
+  {
+    "test_id": "STAT-01",
+    "name": "Check Status - Unknown Activity ID",
+    "method": "GET",
+    "endpoint": "/v1/status/00000000-0000-0000-0000-000000000000",
+    "request_payload": null,
+    "request_params": null,
+    "start_time": "2026-11-12 16:28:09",
+    "status_code": 404,
+    "duration_sec": 1.193,
+    "response_body": {
+      "error": true,
+      "status_code": 404,
+      "details": {
+        "message": "No activity found for the provided activity_id."
+      }
+    },
+    "error": null,
+    "passed": true
+  }
+]
