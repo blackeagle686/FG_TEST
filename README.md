@@ -56,9 +56,9 @@ This repository provides:
 
 ---
 
-##  Tested API Endpoints
+## Evaluating API Endpoints
 
-The test suite provides complete coverage across all **14 FortyGuard API services**:
+The Evaluating suite provides complete coverage across all **14 FortyGuard API services**:
 
 | # | Service Name | Endpoint | Method | Async? | Description |
 | :-: | :--- | :--- | :-: | :-: | :--- |
@@ -259,44 +259,6 @@ FORTYGUARD API v1 COMPREHENSIVE UNIT TEST SUITE
 TOTAL TESTS: 32 | PASSED: 30 (93.8%) | FAILED: 2
 ======================================================================
 ```
-
----
-
-##  Critical Findings & Documentation Discrepancies
-
-Testing revealed key discrepancies between the official documentation examples and the live FortyGuard API implementation:
-
-### 1. Monitor `boundary_geojson` Geometry Format
-- **Documentation Example**: Specifies a GeoJSON `Polygon`:
-  ```json
-  "boundary_geojson": {
-      "type": "Polygon",
-      "coordinates": [[[-74.01, 40.70], ...]]
-  }
-  ```
-- **Actual Server Requirement**: The API validator strictly rejects `Polygon` with `HTTP 422`:
-  ```json
-  {"error": true, "status_code": 422, "message": "boundary_geojson must be a GeoJSON FeatureCollection."}
-  ```
-- **Solution**: Wrap the polygon inside a GeoJSON `FeatureCollection` with a feature containing the polygon geometry.
-
-### 2. Heat Intelligence Analysis Category Limit
-- **Documentation Example**: Submits 3 analysis categories:
-  ```python
-  'analysis': ['geographic', 'environmental', 'urban']
-  ```
-- **Actual Server Requirement**: Rejects requests with more than 2 categories with `HTTP 400`:
-  ```json
-  {"error": true, "status_code": 400, "message": "Your Premium plan supports a maximum of 2 report analysis types. You requested 3. Select 1 or 2 analysis types."}
-  ```
-- **Solution**: Request 1 or 2 categories (e.g. `['geographic', 'environmental']`).
-
-### 3. Routing Engine Unhandled Exception on Identical Coordinates
-- **Bug**: When submitting identical `origin` and `destination` coordinates, the server crashes with `HTTP 500 Internal Server Error` instead of returning a `400` or `422 Bad Request` validation message.
-
-### 4. UUID Path Parameter Requirement
-- The API enforces standard UUID format for all path parameters (`monitor_id`, `activity_id`, `alert_id`). Dummy strings like `monitor_abc123` from documentation samples trigger `HTTP 422 Unprocessable Entity` before route lookup.
-
 ---
 
 ##  Verified Output Artifacts
